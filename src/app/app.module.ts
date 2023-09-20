@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeModule } from './functions/home/home.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BaseUrlInterceptor } from './Interceptor/base.interceptor';
 
 @NgModule({
   declarations: [
@@ -14,9 +16,10 @@ import { HomeModule } from './functions/home/home.module';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HomeModule
+    HomeModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
