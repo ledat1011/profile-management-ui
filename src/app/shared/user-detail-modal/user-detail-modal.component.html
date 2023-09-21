@@ -1,0 +1,54 @@
+<div class="modal-header">
+  <h4 class="modal-title">My Modal</h4>
+  <button
+    type="button"
+    class="close button-icon"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    <span  aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <!-- <p>Modal content here...</p> -->
+  <div class="container ml-3">
+    <div class="row">
+      <!-- Bên trái -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start">
+          <img src="/assets/img/img_avatar.png" alt="Profile Image" class="mr-3 rounded-circle" width="100">
+          <div class="m-2 basic-info">
+            <p >FullName: <span>{{data.fullName}}</span></p>
+            <p>permanentAddress: <span>{{data.permanentAddress}}</span></p>
+            <p>Email: <span>{{data.email}}</span></p>
+            <p>Phone: <span>{{data.phoneNumber}}</span></p>
+            <p>DoB: <span>{{data.dateOfBirth}}</span></p>
+            
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bên phải -->
+      <div class="col-md-6">
+        <div class="d-flex align-items-start">
+          <div>
+            <h4>History</h4>
+            <p>Thông tin 1</p>
+            <p>Thông tin 2</p>
+            <p>Thông tin 3</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end content -->
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.close('Close click')"
+  >
+    Close
+  </button>
+</div>

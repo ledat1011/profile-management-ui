@@ -1,29 +1,57 @@
-import { Component, Directive, OnInit } from "@angular/core";
-import { ColDef, GridReadyEvent } from "ag-grid-community";
+import { Component, Directive, OnInit } from '@angular/core';
+import {
+  ColDef,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+} from 'ag-grid-community';
+import { ButtonActionModel } from '../model/button-acction.model';
+import { GroupButtonComponent } from './group-button/group-button.component';
 
 @Directive()
 export abstract class BaseComponent<T> implements OnInit {
-    columnDefs: ColDef[] = [];
-    rowData: T[] = [];
-    defaultColDef: ColDef = {
-        sortable: true,
-        filter: true,
+  columnDefs: ColDef[] = [];
+  rowData: T[] = [];
+  gridApi!: GridApi<T>;
+  defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+  };
+  gridOptions: GridOptions = {
+    pagination: true,
+  };
+  constructor() {}
+  ngOnInit(): void {
+    this.columnDefs = [...this.columnDefs, ...this.getColumDef()];
+    this.defaultColDef = {
+      ...this.defaultColDef,
+      ...this.getDefaultColDef(),
     };
-    constructor() { }
-    ngOnInit(): void {
-        this.columnDefs = [...this.columnDefs, ...this.getColumDef()];
-        this.defaultColDef = {
-            ...this.defaultColDef,
-            ...this.getDefaultColDef()
-        }
-        this.onInit();
+    if (this.getFavoriteButtonAction().length !== 0) {
+      this.columnDefs.push({
+        field: 'Action',
+        cellRenderer: GroupButtonComponent,
+        cellRendererParams: {
+          customParam: this.getFavoriteButtonAction(),
+        },
+      });
     }
+    this.onInit();
+  }
 
-    onGridReady(params: GridReadyEvent) {
-    }
-    abstract getColumDef(): ColDef[];
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridApi.sizeColumnsToFit();
+  }
 
-    abstract getDefaultColDef(): ColDef;
+  getFavoriteButtonAction(): ButtonActionModel[]{
+    return [];
+  }
+  abstract getColumDef(): ColDef[];
 
-    abstract onInit(): void;
+  getDefaultColDef(): ColDef{
+    return {};
+  }
+
+  abstract onInit(): void;
 }

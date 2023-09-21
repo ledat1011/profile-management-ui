@@ -1,0 +1,9 @@
+<div>
+  <i
+    *ngFor="let param of params.customParam"
+    [ngClass]="getClasses(param)"
+    
+    class="action-icon"
+    (click)="onClick(param.callback)"
+  ></i>
+</div>

@@ -1,0 +1,16 @@
+.action-icon {
+    cursor: pointer;
+    padding: 2px;
+    transition: 0.2s;
+}
+.action-icon:hover{
+    background-color: beige;
+}
+.action-icon_disable {
+    opacity: 0.5;
+    cursor: default;
+}
+.action-icon_disable:hover{
+    background-color: unset;
+}
+

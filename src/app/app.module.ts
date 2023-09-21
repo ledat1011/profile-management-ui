@@ -7,10 +7,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeModule } from './functions/home/home.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BaseUrlInterceptor } from './Interceptor/base.interceptor';
+import { GroupButtonComponent } from './shared/group-button/group-button.component';
+import { HeadLineComponent } from './functions/head-line/head-line.component';
+import { UserDetailModalComponent } from './shared/user-detail-modal/user-detail-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    GroupButtonComponent,
+    HeadLineComponent,
+    UserDetailModalComponent,
   ],
   imports: [
     BrowserModule,

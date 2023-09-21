@@ -8,7 +8,35 @@
 html, body {
     height: 100%;
     width: 100%;
-    padding: 5px;
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
+}
+
+.button-icon{
+    border-radius: 50%;
+    padding: 0!important;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    color: #00000091;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: unset;
+    border: unset;
+    * {
+        font-size: 30px;
+    }
+    transition: 0.4s;
+}
+.button-icon:hover {
+    background-color: rgb(186, 185, 185);
+}
+
+.modal-dialog {
+    height: 100vh;
+}
+
+.p-bold {
+    font-weight: bold;
 }
