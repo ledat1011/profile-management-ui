@@ -1,6 +1,6 @@
 import { CreditProfileModel } from './credit-profile.model';
 
-export interface UserDetailModel extends CreditProfileModel {
+export interface CreditProfileDetailModel extends CreditProfileModel {
   email: string;
   monthlyIncome: number;
   incomeSource: string;

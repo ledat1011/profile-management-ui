@@ -1,11 +1,12 @@
-import { Component, Directive, OnInit } from '@angular/core';
+import { Directive, OnInit } from '@angular/core';
 import {
   ColDef,
   GridApi,
   GridOptions,
-  GridReadyEvent,
+  GridReadyEvent
 } from 'ag-grid-community';
 import { ButtonActionModel } from '../model/button-acction.model';
+import { RowOptionModel } from '../model/row-option.model';
 import { GroupButtonComponent } from './group-button/group-button.component';
 
 @Directive()
@@ -19,14 +20,28 @@ export abstract class BaseComponent<T> implements OnInit {
   };
   gridOptions: GridOptions = {
     pagination: true,
+    suppressCellFocus: true,
+    getRowId: this.getRowNodeId
   };
+  optionsForRow: RowOptionModel= {
+    hasIndex: false
+  }
   constructor() {}
   ngOnInit(): void {
+    if(this.getRowOption()!.hasIndex){
+      this.columnDefs.push(  {
+        headerName: '#',
+        valueGetter: 'node.rowIndex + 1',
+        width: 50,
+        suppressMenu: true
+      })
+    }
     this.columnDefs = [...this.columnDefs, ...this.getColumDef()];
     this.defaultColDef = {
       ...this.defaultColDef,
       ...this.getDefaultColDef(),
     };
+
     if (this.getFavoriteButtonAction().length !== 0) {
       this.columnDefs.push({
         field: 'Action',
@@ -36,6 +51,7 @@ export abstract class BaseComponent<T> implements OnInit {
         },
       });
     }
+
     this.onInit();
   }
 
@@ -53,5 +69,11 @@ export abstract class BaseComponent<T> implements OnInit {
     return {};
   }
 
-  abstract onInit(): void;
+  getRowOption(): RowOptionModel {
+    return {};
+  };
+
+  abstract getRowNodeId(data: any): any;
+
+  onInit(): void {};
 }

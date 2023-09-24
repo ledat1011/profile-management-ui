@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { UserDetailModel } from 'src/app/model/user-detail.model';
-import { BaseModal } from '../base.model';
+import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreditProfileDetailModel } from 'src/app/model/credit-profile-detail.model';
+import { BaseModal } from '../bast-modal.component';
 
 @Component({
   selector: 'app-user-detail-modal',
@@ -9,7 +9,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./user-detail-modal.component.scss'],
 })
 export class UserDetailModalComponent extends BaseModal {
-  data!: UserDetailModel;
+  data!: CreditProfileDetailModel;
+
   constructor(override  activeModal: NgbActiveModal){
     super(activeModal);
   }
