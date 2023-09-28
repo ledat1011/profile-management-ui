@@ -1,0 +1,157 @@
+
+<div class="modal-header">
+    <h4 class="modal-title">Create Profile</h4>
+    <button
+      type="button"
+      class="close button-icon"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      <span  aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <p>Modal content here...</p> -->
+    <!-- app.component.html -->
+<div class="container mt-4" style="height: 50vh;">
+    <div class="row h-100 overflow-auto">
+
+        <!-- First half -->
+        <div class="col-md-6">
+            
+            <!-- Personal Information -->
+            <div class="card mb-4">
+                <div class="card-header">Personal Information</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" [(ngModel)]="fullName" name="fullName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth">
+                    </div>
+                    <div class="mb-3">
+                        <label for="identityNumber" class="form-label">Identity Number</label>
+                        <input type="text" class="form-control" id="identityNumber" [(ngModel)]="identityNumber" name="identityNumber">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" [(ngModel)]="email" name="fullName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="permanentAddress" class="form-label">Permanent Address</label>
+                        <input type="text" class="form-control" id="permanentAddress" [(ngModel)]="permanentAddress" name="permanentAddress">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Information -->
+            <div class="card mb-4">
+                <div class="card-header">Financial Information</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="monthlyIncome" class="form-label">Monthly Income</label>
+                        <input type="number" class="form-control" id="monthlyIncome" [(ngModel)]="monthlyIncome" name="monthlyIncome">
+                    </div>
+                    <div class="mb-3">
+                        <label for="incomeSource" class="form-label">Income Source</label>
+                        <input type="text" class="form-control" id="incomeSource" [(ngModel)]="incomeSource" name="incomeSource">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second half -->
+        <div class="col-md-6">
+            
+            <!-- More Financial Information (Continuation) -->
+            <div class="card mb-4">
+                <div class="card-header">More Financial Information</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="totalAssets" class="form-label">Total Assets</label>
+                        <input type="number" class="form-control" id="totalAssets" [(ngModel)]="totalAssets" name="totalAssets">
+                    </div>
+                    <div class="mb-3">
+                        <label for="totalLiabilities" class="form-label">Total Liabilities</label>
+                        <input type="number" class="form-control" id="totalLiabilities" [(ngModel)]="totalLiabilities" name="totalLiabilities">
+                    </div>
+                    <div class="mb-3">
+                        <label for="currentCreditCardsOrLoans" class="form-label">Current Credit Cards or Loans</label>
+                        <input type="number" class="form-control" id="currentCreditCardsOrLoans" [(ngModel)]="currentCreditCardsOrLoans" name="currentCreditCardsOrLoans">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employment Information -->
+            <div class="card mb-4">
+                <div class="card-header">Employment Information</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="companyName" class="form-label">Company Name</label>
+                        <input type="text" class="form-control" id="companyName" [(ngModel)]="companyName" name="companyName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="occupation" class="form-label">Occupation</label>
+                        <input type="text" class="form-control" id="occupation" [(ngModel)]="occupation" name="occupation">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jobPosition" class="form-label">Job Position</label>
+                        <input type="text" class="form-control" id="jobPosition" [(ngModel)]="jobPosition" name="jobPosition">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jobDurationInMonths" class="form-label">Job Duration (in months)</label>
+                        <input type="number" class="form-control" id="jobDurationInMonths" [(ngModel)]="jobDurationInMonths" name="jobDurationInMonths">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            
+            <!-- Guarantor Information -->
+            <div class="card mb-4">
+                <div class="card-header">Guarantor Information</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="guarantorName" class="form-label">Guarantor Name</label>
+                                <input type="text" class="form-control" id="guarantorName" [(ngModel)]="guarantorName" name="guarantorName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="guarantorRelationship" class="form-label">Guarantor Relationship</label>
+                                <input type="text" class="form-control" id="guarantorRelationship" [(ngModel)]="guarantorRelationship" name="guarantorRelationship">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="guarantorPhone" class="form-label">Guarantor Phone</label>
+                                <input type="tel" class="form-control" id="guarantorPhone" [(ngModel)]="guarantorPhone" name="guarantorPhone">
+                            </div>
+                            <div class="mb-3">
+                                <label for="guarantorEmail" class="form-label">Guarantor Email</label>
+                                <input type="email" class="form-control" id="guarantorEmail" [(ngModel)]="guarantorEmail" name="guarantorEmail">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- end content -->
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="activeModal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+  

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ### eureka server
+  server:
+    build:
+      dockerfile: Dockerfile
+    image: example/web-ui:latest
+    ports:
+      - "4200:80"

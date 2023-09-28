@@ -28,6 +28,28 @@ html, body {
         font-size: 30px;
     }
     transition: 0.4s;
+
+    outline: none;
+    box-shadow: none;
+}
+
+.overlay-icon{
+    border-radius: 50%;
+    padding: 0!important;
+    margin: 0;
+    color: #00000091;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: unset;
+    font-size: 25px;
+    transition: 0.4s;
+    width: 40px;
+    height: 40px;
+}
+
+.overlay-icon:hover {
+    background-color: rgb(186, 185, 185);
 }
 .button-icon:hover {
     background-color: rgb(186, 185, 185);
@@ -39,4 +61,7 @@ html, body {
 
 .p-bold {
     font-weight: bold;
+}
+.dropdown-toggle::after {
+    display:none;
 }

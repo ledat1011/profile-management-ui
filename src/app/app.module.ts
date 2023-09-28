@@ -11,7 +11,9 @@ import { HomeModule } from './functions/home/home.module';
 import { CommonModalComponent } from './shared/common-modal/common-modal.component';
 import { DialogModalComponent } from './shared/dialog-modal/dialog-modal.component';
 import { GroupButtonComponent } from './shared/group-button/group-button.component';
-import { UserDetailModalComponent } from './shared/user-detail-modal/user-detail-modal.component';
+import { UserDetailModalComponent } from './shared/credit/user-detail-modal/user-detail-modal.component';
+import { CreateCreditInfoModalComponent } from './shared/credit/create-credit-info-modal/create-credit-info-modal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,15 @@ import { UserDetailModalComponent } from './shared/user-detail-modal/user-detail
     UserDetailModalComponent,
     CommonModalComponent,
     DialogModalComponent,
+    CreateCreditInfoModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HomeModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true }],
   bootstrap: [AppComponent]

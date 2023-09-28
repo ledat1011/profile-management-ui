@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { AgGridModule } from 'ag-grid-angular';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    AgGridModule
+    AgGridModule,
+    NgbModule
   ]
 })
 export class HomeModule { }

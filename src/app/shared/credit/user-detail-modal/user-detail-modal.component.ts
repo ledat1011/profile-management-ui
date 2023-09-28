@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreditProfileDetailModel } from 'src/app/model/credit-profile-detail.model';
-import { BaseModal } from '../bast-modal.component';
+import { BaseModal } from '../../bast-modal.component';
 
 @Component({
   selector: 'app-user-detail-modal',

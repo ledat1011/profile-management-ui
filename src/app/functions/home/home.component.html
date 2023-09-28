@@ -1,19 +1,26 @@
 <div class="row p-3">
   <div class="col-6">
     <!-- add filter here -->
-      <button type="button" class="btn btn-secondary">
-        <i class="bi bi-plus"></i>Add Profile
-      </button>
+    <button (click)="onCreateClick()" type="button" class="btn btn-secondary">
+      <i class="bi bi-plus"></i>Add Profile
+    </button>
     <div class="filter"></div>
   </div>
   <div class="col-6">
-    <button
-      type="button"
-      class="btn btn-outline-secondary"
-      style="float: right"
-    >
-      Delete
-    </button>
+    <div *ngIf="!isEnableMultipleSelection" class="btn-group" style="float: right" ngbDropdown>
+      <i class="bi bi-three-dots-vertical overlay-icon" ngbDropdownToggle></i>
+      <div ngbDropdownMenu>
+        <button (click)="clickEnableMultipleSelection(true)" class="dropdown-item">Multiple Selections</button>
+      </div>
+    </div>
+    <div *ngIf="isEnableMultipleSelection" class="flex-container" style="float: right">
+      <button (click)="onDeleteMultiple()" type="button" class="btn btn-light btn-outline-danger">
+        Delete
+      </button>
+      <button (click)="clickEnableMultipleSelection(false)" type="button" class="btn btn-light btn-outline-dark">
+        Cancel
+      </button>
+    </div>
   </div>
 </div>
 <div class="row">

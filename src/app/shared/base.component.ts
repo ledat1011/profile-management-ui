@@ -3,7 +3,7 @@ import {
   ColDef,
   GridApi,
   GridOptions,
-  GridReadyEvent
+  GridReadyEvent,
 } from 'ag-grid-community';
 import { ButtonActionModel } from '../model/button-acction.model';
 import { RowOptionModel } from '../model/row-option.model';
@@ -18,24 +18,34 @@ export abstract class BaseComponent<T> implements OnInit {
     sortable: true,
     filter: true,
   };
+  isEnableMultipleSelection: boolean = false;
   gridOptions: GridOptions = {
     pagination: true,
     suppressCellFocus: true,
-    getRowId: this.getRowNodeId
+    getRowId: this.getRowNodeId,
   };
-  optionsForRow: RowOptionModel= {
-    hasIndex: false
-  }
+  optionsForRow: RowOptionModel = {
+    hasIndex: false,
+  };
   constructor() {}
   ngOnInit(): void {
-    if(this.getRowOption()!.hasIndex){
-      this.columnDefs.push(  {
+    if (this.getRowOption()!.hasMultipleSelection) {
+      this.columnDefs.push({
+        colId:"Selection",
+        headerCheckboxSelection: () => this.isEnableMultipleSelection,
+        checkboxSelection: () => this.isEnableMultipleSelection,
+        width: 40,
+      });
+    }
+    if (this.getRowOption()!.hasIndex) {
+      this.columnDefs.push({
         headerName: '#',
         valueGetter: 'node.rowIndex + 1',
         width: 50,
-        suppressMenu: true
-      })
+        suppressMenu: true,
+      });
     }
+
     this.columnDefs = [...this.columnDefs, ...this.getColumDef()];
     this.defaultColDef = {
       ...this.defaultColDef,
@@ -45,6 +55,7 @@ export abstract class BaseComponent<T> implements OnInit {
     if (this.getFavoriteButtonAction().length !== 0) {
       this.columnDefs.push({
         field: 'Action',
+        colId: 'Action',
         cellRenderer: GroupButtonComponent,
         cellRendererParams: {
           customParam: this.getFavoriteButtonAction(),
@@ -60,20 +71,24 @@ export abstract class BaseComponent<T> implements OnInit {
     this.gridApi.sizeColumnsToFit();
   }
 
-  getFavoriteButtonAction(): ButtonActionModel[]{
+  getFavoriteButtonAction(): ButtonActionModel[] {
     return [];
   }
   abstract getColumDef(): ColDef[];
 
-  getDefaultColDef(): ColDef{
+  getDefaultColDef(): ColDef {
     return {};
   }
 
   getRowOption(): RowOptionModel {
     return {};
-  };
+  }
 
   abstract getRowNodeId(data: any): any;
 
-  onInit(): void {};
+  onInit(): void {}
+
+  isCheckboxEnabled(params: any): boolean {
+    return this.getRowOption().hasMultipleSelection!;
+  }
 }

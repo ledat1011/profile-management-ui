@@ -11,7 +11,7 @@ export class DialogModalComponent extends BaseModal{
   title!:String;
   content!:String;
   buttonActions!:ButtonActionModel[];
-  data!:any;
+  data!:any [];
 
   onClickButton(){
     this.activeModal.close(this.data)

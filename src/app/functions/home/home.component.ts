@@ -5,10 +5,11 @@ import { ButtonActionModel } from 'src/app/model/button-acction.model';
 import { CreditProfileModel } from 'src/app/model/credit-profile.model';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { CreditProfileService } from './credit-profile.service';
-import { UserDetailModalComponent } from 'src/app/shared/user-detail-modal/user-detail-modal.component';
+import { UserDetailModalComponent } from 'src/app/shared/credit/user-detail-modal/user-detail-modal.component';
 import { DialogModalComponent } from 'src/app/shared/dialog-modal/dialog-modal.component';
 import { CreditProfileDetailModel } from 'src/app/model/credit-profile-detail.model';
 import { RowOptionModel } from 'src/app/model/row-option.model';
+import { CreateCreditInfoModalComponent } from 'src/app/shared/credit/create-credit-info-modal/create-credit-info-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -26,8 +27,8 @@ export class HomeComponent extends BaseComponent<CreditProfileModel> {
     });
   }
 
-  public paginationPageSize = 10;
-  public cacheBlockSize = 10;
+  public paginationPageSize = 15;
+  public cacheBlockSize = 15;
   override onInit() {}
 
   getColumDef(): ColDef[] {
@@ -44,6 +45,12 @@ export class HomeComponent extends BaseComponent<CreditProfileModel> {
       {
         field: 'permanentAddress',
       },
+      {
+        field: 'email',
+      },
+      {
+        field: 'monthlyIncome',
+      },
     ];
   }
 
@@ -52,7 +59,7 @@ export class HomeComponent extends BaseComponent<CreditProfileModel> {
       {
         class: 'bi bi-trash',
         callback: (v: CreditProfileDetailModel) => {
-          this.onDeleteItem(v);
+          this.onDeleteItems([v]);
         },
         isDisable: false,
       },
@@ -60,8 +67,8 @@ export class HomeComponent extends BaseComponent<CreditProfileModel> {
   }
 
   onCellClicked(event: CellClickedEvent): void {
-    const notShowDialog = ['Action'];
-    if (!notShowDialog.includes(event.colDef.field!)) {
+    const notShowDialog = ['Action', 'Selection'];
+    if (!notShowDialog.includes(event.colDef.colId!)) {
       const modalRef = this.modalService.open(UserDetailModalComponent, {
         centered: true,
         size: 'xl',
@@ -78,7 +85,27 @@ export class HomeComponent extends BaseComponent<CreditProfileModel> {
     }
   }
 
-  onDeleteItem(value: CreditProfileDetailModel) {
+  onCreateClick(){
+    const modalRef = this.modalService.open(CreateCreditInfoModalComponent, {
+      centered: true,
+      size: 'xl',
+    });
+    modalRef.result.then(
+      (result) => {
+        console.log(`Closed with: ${result}`);
+      },
+      (reason) => {
+        console.log(`Dismissed with: ${reason}`);
+      }
+    );
+  }
+
+  onDeleteMultiple(){
+    let itemsDelete = this.gridApi.getSelectedRows();
+    this.onDeleteItems(itemsDelete);
+  }
+
+  onDeleteItems(value: CreditProfileModel[]) {
     const modalRef = this.modalService.open(DialogModalComponent, {
       centered: true,
     });
@@ -89,23 +116,25 @@ export class HomeComponent extends BaseComponent<CreditProfileModel> {
       },
     ] as ButtonActionModel[];
     modalRef.componentInstance.title = 'Delete';
-    modalRef.componentInstance.content = 'Delete this item?';
+    modalRef.componentInstance.content = `Delete this ${value.length} item(s)?`;
     modalRef.componentInstance.buttonActions = buttonActions;
     modalRef.componentInstance.data = value;
     modalRef.result.then(
-      (result: CreditProfileDetailModel) => {
-        this.profileService.deleteByIds([result.profileID]).subscribe((res) => {
-          console.log(res);
-          if (res === true) {
-            this.rowData = this.rowData.filter(
-              (row) => row.profileID !== value.profileID
-            );
-            this.gridApi?.setRowData(this.rowData);
-            this.gridApi.refreshCells();
-          } else {
-            this.showNotification('Delete Failed', '');
-          }
-        });
+      (result: CreditProfileDetailModel[]) => {
+        let ids = result.map(v=> v.profileID);
+        this.profileService
+          .deleteByIds(ids)
+          .subscribe((res) => {
+            if (res === true) {
+              this.rowData = this.rowData.filter(
+                (row) => !ids.includes(row.profileID)
+              );
+              this.gridApi?.setRowData(this.rowData);
+              this.gridApi.refreshCells();
+            } else {
+              this.showNotification('Delete Failed', '');
+            }
+          });
       },
       (reason) => {
         console.log(`Dismissed with: ${reason}`);
@@ -128,6 +157,16 @@ export class HomeComponent extends BaseComponent<CreditProfileModel> {
   override getRowOption(): RowOptionModel {
     return {
       hasIndex: true,
+      hasMultipleSelection: true,
     };
+  }
+
+  clickEnableMultipleSelection(isEnable: boolean) {
+    this.isEnableMultipleSelection = isEnable;
+    if (!isEnable) {
+      this.gridApi.deselectAll();
+    }
+    this.gridApi?.refreshHeader();
+    this.gridApi?.redrawRows();
   }
 }
